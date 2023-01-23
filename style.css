@@ -3,7 +3,14 @@
 
 *{
     box-sizing: border-box;
+    padding: none;
 }
+
+:root{
+  --primary-color: rgb(228, 224, 224); 
+  --secondary-color:
+}
+
 body{
    margin: 0;
    height: 100vh;
@@ -13,7 +20,7 @@ body{
 }
 
 .container{
-    background-color: lightgray;
+    background-color: rgb(228, 224, 224);
     height: 100%;
     text-align: center;
     padding: 30px;
@@ -24,9 +31,63 @@ h1{
     letter-spacing: 3px;
 }
 
+
 .btn-canvas{
     display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
 
 
-.
+.btn-container button{
+   width: 300px;
+   height: 40px;
+   background-color: transparent;
+   border-radius: 10px;
+   font-weight: bolder;
+   cursor: pointer;
+   padding: 0;
+   
+}
+
+.btn-container input[type ="color"] {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+}
+
+
+  input[type='color']::-webkit-color-swatch {
+    border: none;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  } 
+
+.btn-container button:hover{
+    transform: scaleX(1.02);
+    overflow: hidden;
+
+}
+
+.btn:focus {
+    color: white;
+   background-color: rgb(54, 51, 51);
+   border: 2px solid  white;
+}
+
+#show-range-value{
+    font-family: 'Courier New', Courier, monospace;
+   font-size: 60px;
+}
+
