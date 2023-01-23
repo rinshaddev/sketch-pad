@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch-pad</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contininer">
+         <h1>Etch-a-sketch</h1>
+         <div class="btn-canvas"></div>
+        <section id="but-container">
+            <label for="range-collector" >Select your pen-size</label>
+            <div id="show-range-value"></div>
+            <input type="range" id="range-collector">
+            <input type="color" name="color" id="color-picker" min="5" max="64">
+            <button id="btn-color-picker">pen-color</button>
+            <button id="btn-eraser">Eraser</button>
+            <button id="btn-clear">Clear</button>
+        </section>
+        <div id="canvas"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
