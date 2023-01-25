@@ -15,30 +15,63 @@ const slider  = document.getElementById('range-collector');
 const colorPicker = document.getElementById('color-picker');
 
 
-colorPicker.addEventListener('change',  hello);
+colorPicker.addEventListener('change',  setColorBtnGrid);
+btnRainbow.addEventListener('click', rainbow);
+// btnColorPicker.addEventListener('click', )
 
- function hello (e){
+function rainbow (e){
+   grids.forEach(element => {
+    element.removeEventListener ('mouseenter', changeColor)
+   });
+   grids.forEach(element => {
+    element.addEventListener ('mouseenter', hello)
+   })
+  function hello(e){
+    e.target.style.backgroundColor =`#${Math.floor(Math.random()*16777215)}`
+   }}
+
+function normal (e){
+
+ 
+ }
+
+
+function colorGenerator(){
+  return 
+}
+
+
+
+ function setColorBtnGrid (e){
     currentColor = e.target.value;
     setBackgroundColor();
+    // to reassign the current with the value it's currently rainbow; 
+   grids.forEach(element => {
+     element.addEventListener ('mouseenter', hi)
+    })
+    function hi(e){
+     e.target.style.backgroundColor = currentColor;
+    }
 
  }
 
 
 
-
+let grids = [...document.querySelectorAll('.grid')]
+console.log(grids)
  
 function setUpSpecificColorGrid(e){
    gridContainer.style.gridTemplateColumns= `repeat(${currentSize}, 1fr)`;
-   gridContainer.style.gridAutoRows = `repeat (${currentSize}, 1fr)`
+   gridContainer.style.gridAutoRows = `repeat (${currentSize}, 1fr)`;
+  
      for (let i = 0; i < currentSize * currentSize; i++) {
       let grid = document.createElement("div");
         grid.classList.add('grid');
-        grid.addEventListener('mouseenter',() => {grid.style.backgroundColor = currentColor})
+        grid.addEventListener('mouseenter',changeColor)
+        grids.unshift(grid)
         gridContainer.appendChild(grid)
     }
-   
-
-
+    
 }
 function setBackgroundColor() {
     btnColorPicker.style.background = currentColor;
@@ -52,3 +85,7 @@ setUpSpecificColorGrid()
 
 
 
+function changeColor(e){
+        e.target.style.background = currentColor;
+}   
+   
