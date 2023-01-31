@@ -142,7 +142,7 @@ input[type='color']::-webkit-color-swatch {
     width: 800px;
     background-color: white;
     display: grid;
-    cursor: round;
+    cursor: none;
     border: 3px solid black;
     border-radius: 10px;
    
@@ -159,6 +159,13 @@ input[type='color']::-webkit-color-swatch {
 .fa-solid.fa-paintbrush {
     font-size: 30px;
     color: black;
+    height: 60px;
+    width: 60px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 50%;
+    background:white ;
+    z-index: 15;
 }
 
 .fa-solid.fa-palette {
