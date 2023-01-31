@@ -1,13 +1,13 @@
 let currentColor = "#000000"
 let currentType = 'normal';
 let currentCursor = document.getElementById('brush-cursor');
+let currentSize = 16;
 
 const rangeValue = document.getElementById('show-range-value');
 const gridContainer = document.getElementById('canvas');
 const brushContainer = document.getAnimations('btn-color-picker-txt');
 const brushColor = document.querySelector('.fa-solid.fa-paintbrush');
 const palette = document.querySelector('.fa-solid.fa-palette');
-
 
 //descriptions
 const toolBox = document.querySelector('.btn-container')
@@ -16,7 +16,6 @@ const rainbowDescription = document.querySelector('#rainbow-description');
 const eraserDescription = document.querySelector('#eraser-description');
 const clearDescription = document.querySelector('#clear-description');
 const penSizeDescription = document.querySelector('#pensize-description');
-
 
 //Buttons
 const btnColorPicker = document.getElementById('btn-color-picker');
@@ -29,21 +28,52 @@ const colorPicker = document.getElementById('color-picker');
 const slider  = document.getElementById('range-collector');
 
 
+// 1stType
+//this type remove any current event listening and add new one so the color will change
 btnRainbow.onclick =(e)=> setCurrentType('rainbow'); 
 btnEraser.onclick =(e)=> setCurrentType('eraser'); 
 btnColorPicker.onclick =(e)=> setCurrentType('normal');
+// //2nd type;
+//this will add new eventListening with current one;
+// btnRainbow.addEventListener('onclick', (e)=> setCurrentType('rainbow')); 
+// btnEraser.addEventListener('onclick', (e)=> setCurrentType('eraser')); 
+// btnColorPicker.addEventListener('onclick', (e)=> setCurrentType('normal'));
+//that's why this does'nt work as expected
 
 //event listener
 btnColorPicker.addEventListener('click',setUpBtnAndColorPicker);
 colorPicker.addEventListener('change', setUpBtnAndColorPicker);
 gridContainer.addEventListener("mousemove", curserMove);
 gridContainer.addEventListener ('mouseleave', cursorShow);
-
-
 toolBox.addEventListener('mouseenter' ,displayDescription);
 
 
 
+function setUpGrid(e) {
+   gridContainer.style.gridTemplateColumns = `repeat(16, 1fr)`
+     for (let i = 0; i < currentSize * currentSize ; i++) {
+        let grid = document.createElement ('div');
+        grid.classList.add('grid');
+        grid.addEventListener ('mouseenter', changeColor);
+        gridContainer.appendChild(grid);
+     }
+     btnClear.disabled = false;
+}
+
+
+function changeColor(e) {
+   if (currentType === 'normal'){
+      e.target.style.backgroundColor = currentColor;
+      brushColor.style.color = currentColor;
+     }else if (currentType === 'rainbow') {
+      e.target.style.backgroundColor = randomColorGenerator(); 
+      brushColor.style.color = 'black'
+     }else if (currentType === 'eraser'){
+      e.target.style.backgroundColor = 'white'
+     }
+  } 
+
+  
 
 function displayDescription(e){
 
@@ -59,9 +89,6 @@ slider.addEventListener('mouseenter',()=> {penSizeDescription.style.display= 'bl
 slider.addEventListener('mouseleave',()=> {penSizeDescription.style.display = 'none'});
 
 }
-
-
-
 
 //setCurrent Type
 function setCurrentType(type) { 
@@ -86,7 +113,7 @@ function setUpBtnAndColorPicker(event){
 // to set the color of brush and palette
 function ColorPaletteBrush(event) {
    palette.style.color = event;
-  
+   currentColor = event;
 }
 
 
@@ -107,12 +134,16 @@ function curserMove(e) {
    currentCursor.style.top = `${mouseY}px`
    currentCursor.style.zIndex = 11; 
 }
-//to show the cursor
+//to remove cursor on mouseleave 
 function cursorShow () {
    currentCursor.style.display = 'none'
 }
 
+function randomColorGenerator(){
+   return 'hsla(' + Math.floor(Math.random()*360) + ', 100%, 70%, 1)';
+  }
 
 window.onload = () => {
     ColorPaletteBrush(currentColor);
+    setUpGrid()
 }
