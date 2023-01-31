@@ -46,22 +46,55 @@ colorPicker.addEventListener('change', setUpBtnAndColorPicker);
 gridContainer.addEventListener("mousemove", curserMove);
 gridContainer.addEventListener ('mouseleave', cursorShow);
 toolBox.addEventListener('mouseenter' ,displayDescription);
+btnClear.addEventListener("click",clearGrid);
+slider.onchange = (e) => setCurrentSize(e.target.value)
+slider.onmousemove = (e) => displayCurrentSize(e.target.value)
 
 
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
 
-function setUpGrid(e) {
-   gridContainer.style.gridTemplateColumns = `repeat(16, 1fr)`
-     for (let i = 0; i < currentSize * currentSize ; i++) {
-        let grid = document.createElement ('div');
-        grid.classList.add('grid');
-        grid.addEventListener ('mouseenter', changeColor);
-        gridContainer.appendChild(grid);
-     }
-     btnClear.disabled = false;
+function displayCurrentSize(e) {
+   rangeValue.innerHTML = `<u>Brush Size</u><br>${e}`
+}
+
+function setCurrentSize(e){
+   currentSize= e;
+    clearGrid();
 }
 
 
-function changeColor(e) {
+
+function clearGrid() {
+ let grids = document.querySelectorAll('.grid')
+// to delete only the grids not the cursor
+   for (let i = 0; i < grids.length; i++){
+      grids[i].parentNode.removeChild(grids[i]);
+   }
+   setUpGrid()
+ 
+}
+
+function setUpGrid(e) { 
+     if (gridContainer.children > 4){
+      btnClear.disabled = false;
+   }
+   gridContainer.style.gridTemplateColumns = `repeat(${currentSize},1fr)`
+   gridContainer.style.gridTemplateRows = `repeat${currentSize},1fr)`
+     for (let i = 0; i < currentSize * currentSize ; i++) {
+        let grid = document.createElement ('div');
+        grid.classList.add('grid');
+        grid.addEventListener ('mouseover', updateColor);
+        grid.addEventListener('mousedown', updateColor);
+        gridContainer.appendChild(grid);
+     }
+   
+}
+
+
+function updateColor(e) {
+   if (e.type == 'mouseover' && !mouseDown) return;
    if (currentType === 'normal'){
       e.target.style.backgroundColor = currentColor;
       brushColor.style.color = currentColor;
@@ -73,7 +106,7 @@ function changeColor(e) {
      }
   } 
 
-  
+
 
 function displayDescription(e){
 
