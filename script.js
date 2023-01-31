@@ -1,11 +1,6 @@
-
-const DEFAULT_COLOR = "normal";
-
-let currentColor = '#000000';
-let currentSize = 16;
-let currentType = DEFAULT_COLOR;
-
-
+let currentColor = "#000000"
+let currentType = 'normal';
+let currentCursor = document.getElementById('brush-cursor');
 
 const rangeValue = document.getElementById('show-range-value');
 const gridContainer = document.getElementById('canvas');
@@ -14,47 +9,69 @@ const brushColor = document.querySelector('.fa-solid.fa-paintbrush');
 const palette = document.querySelector('.fa-solid.fa-palette');
 
 
+//descriptions
+const toolBox = document.querySelector('.btn-container')
+const colorDescription = document.querySelector('#color-description');
+const rainbowDescription = document.querySelector('#rainbow-description');
+const eraserDescription = document.querySelector('#eraser-description');
+const clearDescription = document.querySelector('#clear-description');
+const penSizeDescription = document.querySelector('#pensize-description');
+
+
+//Buttons
 const btnColorPicker = document.getElementById('btn-color-picker');
 const btnRainbow = document.getElementById('btn-random-color');
 const btnClear = document.getElementById('btn-clear');
 const btnEraser = document.getElementById('btn-eraser');
+
+//inputs
+const colorPicker = document.getElementById('color-picker');
 const slider  = document.getElementById('range-collector');
 
 
-const colorPicker = document.getElementById('color-picker');
+btnRainbow.onclick =(e)=> setCurrentType('rainbow'); 
+btnEraser.onclick =(e)=> setCurrentType('eraser'); 
+btnColorPicker.onclick =(e)=> setCurrentType('normal');
 
-
-
+//event listener
 btnColorPicker.addEventListener('click',setUpBtnAndColorPicker);
 colorPicker.addEventListener('change', setUpBtnAndColorPicker);
-gridContainer.addEventListener ("mouseenter", showingCursor);
-gridContainer.addEventListener ('mouseleave',  showingCursor);
-gridContainer.addEventListener("mousemove", curserShow);
+gridContainer.addEventListener("mousemove", curserMove);
+gridContainer.addEventListener ('mouseleave', cursorShow);
 
 
-//To display the custom cursor when enter the container
-function showingCursor (e){
-    let brushCursor = document.getElementById ('brush-cursor')
-    
-    
-    //To whether mouse enter or not to show the cursor
-    if (e.type == 'mouseenter'){ 
-        brushCursor.style.display ="block"}
-        else if (e.type == 'mouseleave'){
-            brushCursor.style.display = "none"
-        }
-    
+toolBox.addEventListener('mouseenter' ,displayDescription);
+
+
+
+
+function displayDescription(e){
+
+btnRainbow.addEventListener('mouseenter',()=> {rainbowDescription.style.display= 'block'});
+btnRainbow.addEventListener('mouseleave',()=> {rainbowDescription.style.display = 'none'});
+btnColorPicker.addEventListener('mouseenter',()=> {colorDescription.style.display= 'block'});
+btnColorPicker.addEventListener('mouseleave',()=> {colorDescription.style.display = 'none'});
+btnEraser.addEventListener('mouseenter',()=> {eraserDescription.style.display= 'block'});
+btnEraser.addEventListener('mouseleave',()=> {eraserDescription.style.display = 'none'});
+btnClear.addEventListener('mouseenter',()=> {clearDescription.style.display= 'block'});
+btnClear.addEventListener('mouseleave',()=> {clearDescription.style.display = 'none'});
+slider.addEventListener('mouseenter',()=> {penSizeDescription.style.display= 'block'});
+slider.addEventListener('mouseleave',()=> {penSizeDescription.style.display = 'none'});
+
 }
 
 
-// to display color picker
-function  setUpBtnAndColorPicker(event) {
+
+
+//setCurrent Type
+function setCurrentType(type) { 
+   currentType = type;
    
-   displayColorPickerAndPallette(event);
-} 
+}
 
 
-function displayColorPickerAndPallette (event){
+// complete color picking process
+function setUpBtnAndColorPicker(event){
    if (event.type == 'change'){
     colorPicker.style.display = 'none';
     btnColorPicker.style.display = 'block';
@@ -64,37 +81,38 @@ function displayColorPickerAndPallette (event){
    else if (event.type == 'click'){
     btnColorPicker.style.display = 'none';
     colorPicker.style.display = 'block';
-    
    }
-
 }
-    
-
-
 // to set the color of brush and palette
 function ColorPaletteBrush(event) {
    palette.style.color = event;
-   brushColor.style.color = 'black';
-   currentColor = event;
+  
 }
 
-  
 
 //show the according to the mouse mouse move
-function curserShow(e) {
-   const brushCursor = document.getElementById ('brush-cursor');
+function curserMove(e) {
+   currentCursor.style.display = "none"
+   if (currentType === "normal"|| currentType === "rainbow"){
+    currentCursor = document.getElementById ('brush-cursor')
+      currentCursor.style.display = 'inline-block'
+   }else if (currentType === 'eraser') {
+     currentCursor = document.getElementById('eraser-cursor');
+     currentCursor.style.display = 'inline-block'
+    }
     mouseX = e.clientX;
     mouseY = e.clientY;
-    brushCursor.style.position ="absolute"
-    brushCursor.style.left = `${mouseX}px`
-    brushCursor.style.top = `${mouseY}px`
-    brushCursor.style.zIndex = 11;
-    
+   currentCursor.style.position ="absolute"
+   currentCursor.style.left = `${mouseX}px`
+   currentCursor.style.top = `${mouseY}px`
+   currentCursor.style.zIndex = 11; 
 }
-
+//to show the cursor
+function cursorShow () {
+   currentCursor.style.display = 'none'
+}
 
 
 window.onload = () => {
-    setUpGrid();
     ColorPaletteBrush(currentColor);
 }
