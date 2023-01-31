@@ -23,7 +23,7 @@
                 <div class="btn-description">
                     <button id="btn-color-picker"><i class="fa-solid fa-palette"
                             id="fa-solid"></i></button>
-                    <div class="description" style="display: none;"> select color </div>
+                    <div class="description" id="color-description" style="display: none;"> select color your color when color picker shows </div>
                     <input type="color" name="color" value="#000000" id="color-picker"
                         style="display:none">
                 </div>
@@ -31,35 +31,35 @@
                 <div class="btn-description">
 
                     <button id="btn-random-color" class="btn">Rainbow brush</button>
-                    <div class="description" style="display: none;">random brush color for canvas
+                    <div class="description" id="rainbow-description" style="display: none;">random brush color for canvas
                     </div>
                 </div>
                 <div class="btn-description">
                     <button id="btn-eraser" class="btn"> <i class="fa-solid fa-eraser">
                         </i></button>
-                    <div class="description" style="display: none;">erase your content</div>
+                    <div class="description" id="eraser-description" style="display: none;">erase the content</div>
                 </div>
                 <div class="btn-description">
-                    <button id="btn-clear" disabled><i class="fa fa-times"
+                    <button id="btn-clear" ><i class="fa fa-times"
                             aria-hidden="true"></i></button>
-                    <div class="description" style="display: none;">clear your whole canvas</div>
+                    <div class="description" id ="clear-description"style="display: none;" disabled>clear your whole canvas</div>
                 </div>
  
                 <div class="pen-size">
-                    <div id="show-range-value">Brush-Size <br>16 x 16</div>
+                    <div id="show-range-value"><u>Brush Size</u><br>16</div>
                     <div class="input">
                          <input type="range" id="range-collector" value="16" min="5" max="64" />
                     </div>
-                    <div class="description" style="display: none;">higher value have small size</div>
+                    <div class="description" id="pensize-description"style="display: none;" >higher value is small size lower value is big size</div>
                 </div>
             </section>
-           
 
             <div class="canvas-size">
 
                 <div id="canvas">
                     <i class="fa-solid fa-paintbrush" id="brush-cursor" style="display: none;">
                     </i>
+                    <i class="fa-solid fa-eraser" id="eraser-cursor" style="display: none;"></i>
                 </div>
                 
             </div>
